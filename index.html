@@ -261,7 +261,12 @@
       td.num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 14px; white-space: nowrap; }
       td.ld { min-width: 150px; max-width: 220px; overflow-wrap: anywhere; font-weight: 600; }
       td.pt { min-width: 130px; max-width: 200px; }
-      td.td { min-width: 220px; max-width: 340px; overflow-wrap: anywhere; color: var(--ink-2); }
+      td.td { min-width: 210px; max-width: 320px; color: var(--ink-2); }
+      td.td .site { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+      td.td .site:first-child { padding-top: 0; }
+      td.td .site:last-child { border-bottom: 0; padding-bottom: 0; }
+      td.td .sd { font-weight: 700; font-size: 13.5px; color: var(--ink); overflow-wrap: anywhere; }
+      td.td .sm { font-size: 12px; color: var(--ink-2); font-family: "IBM Plex Mono", ui-monospace, monospace; white-space: nowrap; }
       td.notes { min-width: 240px; max-width: 380px; overflow-wrap: anywhere; color: var(--ink-2); }
       .badge {
         display: inline-block; min-width: 36px; text-align: center;
@@ -432,7 +437,7 @@
                 <th class="num sortable" data-sort="dr-desc">DR&lt;20<span class="arrow" data-arrow="dr"></span></th>
                 <th>Lowest DR Site</th>
                 <th>Page Type</th>
-                <th>Tool Site Domain</th>
+                <th>SERP Sites</th>
                 <th>Notes</th>
               </tr>
             </thead>
@@ -648,6 +653,14 @@
         var cls = d.kd === 0 ? "k0" : d.kd <= 10 ? "k-low" : d.kd <= 30 ? "k-mid" : d.kd <= 60 ? "k-high" : "";
         return '<span class="badge ' + cls + '">' + d.kd + "</span>";
       }
+      function serpSites(td) {
+        if (!td) return '<span class="muted">—</span>';
+        return td.split(" | ").map(function (s) {
+          var m = s.match(/^(.*) \(DR (\d+)\) ; Traffic (.*)$/);
+          if (!m) return '<div class="site"><span class="sd">' + esc(s) + "</span></div>";
+          return '<div class="site"><span class="sd">' + esc(m[1]) + '</span><span class="sm">DR ' + m[2] + " · Traffic " + esc(m[3]) + "</span></div>";
+        }).join("");
+      }
       function typeTags(d, trk) {
         if (!d.pt) return '<span class="muted">—</span>';
         return d.pt.split(";").map(function (t) {
@@ -695,7 +708,7 @@
           html += '<td class="num" data-lbl="DR<20 Sites"><span class="dr-pill' + (d.dr > 0 ? " has" : "") + '">' + (d.dr === null ? "—" : d.dr) + "</span></td>";
           html += '<td class="ld" data-lbl="Lowest DR Site">' + (d.ld ? esc(d.ld) : '<span class="muted">—</span>') + "</td>";
           html += '<td class="pt" data-lbl="Page Type">' + typeTags(d, trk) + "</td>";
-          html += '<td class="td" data-lbl="Tool Site Domain">' + (d.td ? esc(d.td) : '<span class="muted">—</span>') + "</td>";
+          html += '<td class="td" data-lbl="SERP Sites">' + serpSites(d.td) + "</td>";
           html += '<td class="notes" data-lbl="Notes">' + (d.n ? esc(d.n) : '<span class="muted">—</span>') + "</td>";
           html += "</tr>";
         });
