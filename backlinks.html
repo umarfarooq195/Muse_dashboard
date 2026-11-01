@@ -72,12 +72,10 @@
 <body>
 <header><div class="wrap">
   <h1>🔗 Sites &amp; Backlinks Dashboard</h1>
-  <p>Har site ka apna tab — upar keyword aur competition ka data, neechay backlink table. Status aur Chosen Thread cloud mein auto-save hote hain, taake phone aur laptop par hamesha aik jaisa nazar aaye.</p>
 </div></header>
 <main>
   <div class="tabs" id="tabs"></div>
   <div id="panels"></div>
-  <footer>Sites &amp; Backlinks Dashboard — data sources: Ahrefs (Site Explorer) · RDAP/Wayback (domain age) · site sitemaps (pages/posts)</footer>
 </main>
 <div id="toast"></div>
 <script>
@@ -126,7 +124,7 @@ function panelHTML(site){
   h += '<div class="info">';
   h += card('🔑 Main Keyword', esc(site.keyword));
   h += card('🌐 Domain', '<a href="'+esc(site.url)+'" target="_blank" rel="noopener">'+esc(site.domain)+'</a>');
-  h += card('🎂 Domain Creation Date', dateText(site.created), 'Age: '+ageText(site.created, site.createdApprox)+' · har roz auto-update');
+  h += card('🎂 Domain Creation Date', dateText(site.created), 'Age: '+ageText(site.created, site.createdApprox));
   h += card('📈 Keyword Volume', site.volume==null?'<span class="pend">— Ahrefs pending</span>':fmtN(site.volume));
   h += card('🎯 Ahrefs KD', site.ahrefsKD==null?'<span class="pend">— pending</span>':site.ahrefsKD);
   h += card('🦊 Moz KD', site.mozKD==null?'<span class="pend">— pending</span>':site.mozKD);
@@ -135,7 +133,6 @@ function panelHTML(site){
   h += '</div>';
   h += '<div class="bar"><button class="refbtn" onclick="requestRefresh(\''+site.key+'\')">🔄 Refresh Data</button>'
      + '<div class="progress"><div class="pt">🔗 Backlinks progress: '+live+' live / '+total+' total</div><div class="track"><div class="fill" style="width:'+pct+'%"></div></div></div></div>';
-  h += '<div class="note">Refresh dabane se: nayi SERP sites add hongi, purani sites kay stats update honge, un kay naye backlinks bhi add ho jayenge. Aap ka status/thread wala data kabhi delete ya change nahi hoga.</div>';
   h += '<h2>🏆 Top Sites — “'+esc(site.keyword)+'” (US SERP)</h2>';
   h += '<div class="tblwrap"><table><thead><tr><th>#</th><th>Site</th><th>DR</th><th>Traffic (Site Explorer)</th><th>Domain Age</th><th>Sitemap Pages</th><th>Sitemap Posts</th><th>Backlinks</th><th>Referring Domains</th></tr></thead><tbody>';
   site.competitors.forEach(function(c, idx){
@@ -148,13 +145,12 @@ function panelHTML(site){
   });
   h += '</tbody></table></div>';
   if(site.compNote) h += '<div class="note">'+esc(site.compNote)+'</div>';
-  h += '<div class="note">DR / Traffic / Backlinks / Referring Domains — ye Ahrefs Site Explorer se bharay jayenge (credits reset kay baad). Age aur sitemap counts public data se verified hain. Sabz chip wali age = domain 1 saal se kam purana.</div>';
   h += '<h2>🔗 Backlinks Table</h2>';
   h += '<div class="filters"><input type="text" placeholder="🔍 Domain ya competitor search karein…" oninput="filterRows(\''+site.key+'\', this.value, document.getElementById(\'fstatus-'+site.key+'\').value)">'
      + '<select id="fstatus-'+site.key+'" onchange="filterRows(\''+site.key+'\', document.querySelector(\'#panel-'+site.key+' .filters input\').value, this.value)"><option value="all">Sab status</option><option value="live">✅ Live sirf</option><option value="pending">⏳ Pending sirf</option></select></div>';
   h += '<div class="tblwrap"><table id="bl-'+site.key+'"><thead><tr><th>Domain</th><th>DR</th><th>Domain Traffic</th><th>Competitor Domain</th><th>Reference URL</th><th>Dofollow / Nofollow</th><th>Link Live / Pending</th><th>Chosen Thread</th></tr></thead><tbody>';
   if(!site.backlinks.length){
-    h += '<tr><td colspan="8"><div class="empty"><span class="big">🕸️</span>Abhi is tab mein koi backlink row nahi.<br>Pehla data competitors kay Site Explorer backlinks se bharay ga — har competitor kay backlinks domain traffic se sort karke, traffic-0 walay domains chhor kar.</div></td></tr>';
+    h += '<tr><td colspan="8"><div class="empty"><span class="big">🕸️</span>Abhi is tab mein koi backlink row nahi.</div></td></tr>';
   }
   site.backlinks.forEach(function(r){
     var key = site.key+'|'+r.domain;
@@ -171,7 +167,6 @@ function panelHTML(site){
       + '</tr>';
   });
   h += '</tbody></table></div>';
-  h += '<div class="note">Aik domain = aik hi row. Agar aik domain ko kai competitors ne link kiya hai, to saaray competitors aur un ki reference URLs isi aik row mein nazar aayenge.</div>';
   return h;
 }
 function card(lbl, val, sub){ return '<div class="card"><div class="lbl">'+lbl+'</div><div class="val">'+val+'</div>'+(sub?'<div class="sub">'+sub+'</div>':'')+'</div>'; }
