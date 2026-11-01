@@ -99,10 +99,7 @@ function ageParts(iso){
 }
 function ageText(iso, approx){
   var p = ageParts(iso); if(!p) return '<span class="pend">—</span>';
-  var s = '';
-  if(p.y>0) s = p.y + ' saal ' + p.m + ' maah';
-  else if(p.m>0) s = p.m + ' maah ' + p.d + ' din';
-  else s = p.d + ' din';
+  var s = p.y + ' year | ' + p.m + ' month | ' + p.d + ' days';
   var young = (p.y===0);
   return (approx?'~':'') + '<span class="'+(young?'yng':'age')+'">' + s + '</span>';
 }
