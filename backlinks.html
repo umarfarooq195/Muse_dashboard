@@ -6,72 +6,71 @@
 <title>Sites &amp; Backlinks Dashboard</title>
 <style>
   * { box-sizing: border-box; }
-  :root { --ink:#17222e; --mut:#5b6b7f; --line:#dfe6ee; --brand:#0f766e; --brand2:#17324f; }
-  body { font-family: "Segoe UI", -apple-system, Roboto, Arial, sans-serif; margin: 0; background: linear-gradient(180deg,#eef3f7 0%, #f7f9fb 220px); color: var(--ink); }
-  header { background: linear-gradient(120deg, #0b2536 0%, #17324f 55%, #0f766e 130%); color: #fff; padding: 22px 20px 20px; box-shadow: 0 2px 14px rgba(11,37,54,.35); }
-  header .wrap { max-width: 1240px; margin: 0 auto; }
-  header h1 { margin: 0; font-size: 23px; letter-spacing: .2px; }
-  header p { margin: 6px 0 0; font-size: 13.5px; opacity: .88; max-width: 760px; line-height: 1.45; }
-  main { max-width: 1240px; margin: 0 auto; padding: 0 14px 30px; }
-  .tabs { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
-  .tab { display: flex; align-items: center; gap: 9px; border: 1px solid var(--line); background: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 14.5px; color: var(--brand2); box-shadow: 0 1px 4px rgba(20,40,60,.06); transition: all .15s; }
-  .tab img { width: 20px; height: 20px; border-radius: 5px; }
-  .tab:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(20,40,60,.12); }
-  .tab.active { background: var(--brand2); color: #fff; border-color: var(--brand2); }
-  .panel { display: none; margin-top: 16px; }
-  .panel.active { display: block; animation: fade .25s ease; }
-  @keyframes fade { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none;} }
-  .info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; box-shadow: 0 1px 5px rgba(20,40,60,.05); border-top: 3px solid var(--brand); }
-  .card:nth-child(2n) { border-top-color: #2563eb; } .card:nth-child(3n) { border-top-color: #d97706; } .card:nth-child(4n) { border-top-color: #7c3aed; }
-  .card .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--mut); font-weight: 700; }
-  .card .val { font-size: 17px; font-weight: 800; margin-top: 4px; word-break: break-word; }
-  .card .val a { color: #14508c; text-decoration: none; } .card .val a:hover { text-decoration: underline; }
-  .card .sub { font-size: 12.5px; color: #0f766e; margin-top: 3px; font-weight: 700; }
-  .bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 18px 0 4px; }
-  .refbtn { background: linear-gradient(120deg, #0f766e, #0b5e57); color: #fff; border: none; padding: 11px 20px; border-radius: 9px; font-size: 14.5px; cursor: pointer; font-weight: 700; box-shadow: 0 2px 8px rgba(15,118,110,.35); transition: all .15s; }
-  .refbtn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15,118,110,.4); }
+  :root { --ink:#0f172a; --mut:#64748b; --line:#e2e8f0; --accent:#0f766e; --accentSoft:#ecfdf5; --bg:#f8fafc; }
+  body { font-family: "Inter", "Segoe UI", -apple-system, Roboto, Arial, sans-serif; margin: 0; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  header { background: #fff; border-bottom: 1px solid var(--line); }
+  header .wrap { max-width: 1200px; margin: 0 auto; padding: 18px 20px; display: flex; align-items: center; gap: 12px; }
+  .logo { width: 38px; height: 38px; border-radius: 10px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 19px; flex: none; }
+  header h1 { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -.2px; }
+  header .sub { font-size: 12.5px; color: var(--mut); margin-top: 1px; }
+  main { max-width: 1200px; margin: 0 auto; padding: 20px 20px 34px; }
+  .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--line); flex-wrap: wrap; }
+  .tab { display: flex; align-items: center; gap: 8px; border: none; background: none; padding: 10px 16px; cursor: pointer; font-weight: 600; font-size: 14.5px; color: var(--mut); border-bottom: 2px solid transparent; margin-bottom: -2px; font-family: inherit; }
+  .tab img { width: 18px; height: 18px; border-radius: 4px; }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .panel { display: none; padding-top: 20px; }
+  .panel.active { display: block; animation: fade .22s ease; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .info { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 12px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .card .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .7px; color: var(--mut); font-weight: 600; }
+  .card .val { font-size: 16.5px; font-weight: 700; margin-top: 5px; word-break: break-word; }
+  .card .val a { color: var(--ink); text-decoration: none; } .card .val a:hover { color: var(--accent); }
+  .card .sub { font-size: 13px; color: var(--accent); margin-top: 3px; font-weight: 600; }
+  .bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin: 20px 0 2px; }
+  .refbtn { background: var(--accent); color: #fff; border: none; padding: 10px 18px; border-radius: 9px; font-size: 14px; cursor: pointer; font-weight: 600; font-family: inherit; transition: background .15s; }
+  .refbtn:hover { background: #0b5e57; }
   .refbtn:active { transform: scale(.98); }
-  .progress { flex: 1; min-width: 220px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 13px; }
-  .progress .pt { font-size: 12.5px; font-weight: 700; color: var(--brand2); margin-bottom: 6px; }
-  .track { height: 9px; background: #e8edf3; border-radius: 99px; overflow: hidden; }
-  .fill { height: 100%; background: linear-gradient(90deg, #0f766e, #34d399); border-radius: 99px; transition: width .4s; }
-  h2 { font-size: 17px; margin: 22px 0 9px; color: var(--brand2); display: flex; align-items: center; gap: 8px; }
-  .tblwrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 1px 5px rgba(20,40,60,.05); }
+  .progress { flex: 1; min-width: 230px; }
+  .progress .pt { font-size: 12.5px; font-weight: 600; color: var(--mut); margin-bottom: 6px; }
+  .progress .pt b { color: var(--ink); }
+  .track { height: 8px; background: #e8edf3; border-radius: 99px; overflow: hidden; }
+  .fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width .4s; }
+  h2 { font-size: 15.5px; font-weight: 700; margin: 26px 0 10px; letter-spacing: -.1px; }
+  .tblwrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
   table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 780px; }
-  th { background: #f0f4f9; text-align: left; padding: 10px; border-bottom: 2px solid var(--line); white-space: nowrap; font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; color: #41546c; position: sticky; top: 0; }
-  td { padding: 9px 10px; border-bottom: 1px solid #eef1f5; vertical-align: middle; }
-  tbody tr:nth-child(even) { background: #fafcfe; }
-  tbody tr:hover { background: #eef7f4; }
-  tr:last-child td { border-bottom: none; }
-  td.dom { font-weight: 700; } td.dom a { color: #14508c; text-decoration: none; } td.dom a:hover { text-decoration: underline; }
-  td.dom img, .refcell img { width: 16px; height: 16px; vertical-align: -3px; margin-right: 6px; border-radius: 4px; }
-  .rank { display: inline-flex; width: 26px; height: 26px; border-radius: 50%; background: #e8edf3; align-items: center; justify-content: center; font-weight: 800; font-size: 12.5px; color: #41546c; }
-  .rank.r1 { background: #fef3c7; color: #92400e; } .rank.r2 { background: #e5e7eb; color: #374151; } .rank.r3 { background: #fde8d7; color: #9a3412; }
-  .pend { color: #9aa7b5; }
-  .yng { background: #dcf5e6; color: #166534; border-radius: 99px; padding: 2px 9px; font-weight: 700; font-size: 12.5px; white-space: nowrap; }
-  .age { font-weight: 600; white-space: nowrap; }
-  .dchip { display: inline-block; min-width: 34px; text-align: center; background: #eef2f7; border-radius: 7px; padding: 2px 7px; font-weight: 800; }
-  .note { font-size: 12.5px; color: var(--mut); margin-top: 8px; line-height: 1.5; }
-  .filters { display: flex; gap: 9px; flex-wrap: wrap; margin: 4px 0 10px; }
-  .filters input[type=text] { flex: 1; min-width: 200px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 9px; font-size: 14px; background: #fff; }
-  .filters select { padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px; font-size: 14px; background: #fff; font-weight: 600; }
-  select.status { padding: 6px 8px; border-radius: 8px; border: 1.5px solid #c3ccd6; font-weight: 700; cursor: pointer; }
-  select.status.live { background: #dcf5e6; border-color: #16a34a; color: #14532d; }
-  select.status.pending { background: #fef3c7; border-color: #d97706; color: #78350f; }
-  input.thread { width: 100%; min-width: 180px; padding: 7px 9px; border: 1px solid #c3ccd6; border-radius: 8px; font-size: 12.5px; }
-  input.thread:focus { outline: 2px solid #0f766e55; border-color: var(--brand); }
-  .empty { padding: 26px 18px; text-align: center; color: var(--mut); font-size: 14px; line-height: 1.6; }
-  .empty .big { font-size: 30px; display: block; margin-bottom: 6px; }
+  th { background: #fbfcfe; text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; font-size: 11.5px; text-transform: uppercase; letter-spacing: .5px; color: var(--mut); font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #f8fbfa; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.dom { font-weight: 600; } td.dom a { color: var(--ink); text-decoration: none; } td.dom a:hover { color: var(--accent); }
+  td img { width: 16px; height: 16px; vertical-align: -3px; margin-right: 7px; border-radius: 4px; }
+  .rank { color: var(--mut); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .pend { color: #b0bcc9; }
+  .yng { background: var(--accentSoft); color: #065f46; border-radius: 99px; padding: 2px 9px; font-weight: 600; font-size: 12.5px; white-space: nowrap; }
+  .age { font-weight: 500; white-space: nowrap; color: #334155; }
+  .dchip { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .filters { display: flex; gap: 9px; flex-wrap: wrap; margin: 2px 0 10px; }
+  .filters input[type=text] { flex: 1; min-width: 200px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 9px; font-size: 14px; background: #fff; font-family: inherit; }
+  .filters input[type=text]:focus { outline: 2px solid #0f766e33; border-color: var(--accent); }
+  .filters select { padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px; font-size: 14px; background: #fff; font-weight: 600; font-family: inherit; }
+  select.status { padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); font-weight: 600; cursor: pointer; font-family: inherit; background: #fff; }
+  select.status.live { background: var(--accentSoft); border-color: #a7f3d0; color: #065f46; }
+  select.status.pending { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+  input.thread { width: 100%; min-width: 180px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; font-size: 12.5px; font-family: inherit; }
+  input.thread:focus { outline: 2px solid #0f766e33; border-color: var(--accent); }
+  .empty { padding: 30px 18px; text-align: center; color: var(--mut); font-size: 14px; }
   .multi { white-space: pre-line; font-size: 12.5px; }
-  .multi a { color: #14508c; text-decoration: none; word-break: break-all; } .multi a:hover { text-decoration: underline; }
-  #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: var(--brand2); color: #fff; padding: 11px 20px; border-radius: 10px; font-size: 14px; display: none; z-index: 50; box-shadow: 0 6px 18px rgba(0,0,0,.3); }
-  footer { text-align: center; color: var(--mut); font-size: 12px; padding: 6px 0 22px; }
+  .multi a { color: #2563eb; text-decoration: none; word-break: break-all; } .multi a:hover { text-decoration: underline; }
+  #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 11px 20px; border-radius: 10px; font-size: 14px; display: none; z-index: 50; box-shadow: 0 8px 22px rgba(15,23,42,.28); }
 </style>
 </head>
 <body>
 <header><div class="wrap">
-  <h1>🔗 Sites &amp; Backlinks Dashboard</h1>
+  <div class="logo">🔗</div>
+  <div><h1>Sites &amp; Backlinks</h1><div class="sub">Competitor aur backlink tracking — har site ka apna tab</div></div>
 </div></header>
 <main>
   <div class="tabs" id="tabs"></div>
@@ -80,7 +79,7 @@
 <div id="toast"></div>
 <script>
 var PANTRY = "23ed3362-78ad-43ff-997f-5fe42ef13da1";
-var SITES = [{"ahrefsKD": null, "backlinks": [], "compNote": "", "competitors": [{"backlinks": null, "domain": "doordash.com", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2013-06-18", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewscoffeemenu.com", "dr": null, "pages": 13, "posts": 184, "refdoms": null, "reg": "2025-10-26", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7thbrewmenu.com", "dr": null, "pages": 6, "posts": 0, "refdoms": null, "reg": "2026-02-01", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewmenuu.us", "dr": null, "pages": 5, "posts": 181, "refdoms": null, "reg": "2024-10-04", "regApprox": true, "traffic": null}, {"backlinks": null, "domain": "7brewmenucorner.com", "dr": null, "pages": 7, "posts": 0, "refdoms": null, "reg": "2026-03-25", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7thbrewmenus.net", "dr": null, "pages": 24, "posts": 94, "refdoms": null, "reg": "2026-03-01", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewmenu-us.net", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2026-10-13", "regApprox": false, "traffic": null}], "created": "2026-07-29", "createdApprox": false, "domain": "7brewmenuprices.net", "key": "brew", "keyword": "7 brew menu", "lowDR": null, "mozKD": null, "name": "7 Brew Menu", "ownPages": 12, "ownPosts": 0, "url": "https://7brewmenuprices.net/", "volume": null}, {"ahrefsKD": null, "backlinks": [], "compNote": "startmod.dev aik bara platform hai — us ki sitemap mein kul 32,981 URLs hain, is liye pages/posts alag nahi ginay gaye.", "competitors": [{"backlinks": null, "domain": "robots.net", "dr": null, "pages": 17, "posts": 4561, "refdoms": null, "reg": "1997-01-04", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "jennymodsminecraft.net", "dr": null, "pages": 23, "posts": 3, "refdoms": null, "reg": "2026-08-25", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "startmod.dev", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2026-10-23", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "apkpure.net", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2015-08-08", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "jennymodsminecrafts.com", "dr": null, "pages": 8, "posts": 1, "refdoms": null, "reg": "2026-08-10", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "minecraftjenny-mod.com", "dr": null, "pages": 18, "posts": 26, "refdoms": null, "reg": "2025-01-08", "regApprox": false, "traffic": null}], "created": "2026-06-01", "createdApprox": false, "domain": "jenny-mod.net", "key": "jenny", "keyword": "jenny mod", "lowDR": null, "mozKD": null, "name": "Jenny Mod", "ownPages": 9, "ownPosts": 0, "url": "https://jenny-mod.net/", "volume": null}];
+var SITES = [{"ahrefsKD": null, "backlinks": [], "compNote": "", "competitors": [{"backlinks": null, "domain": "doordash.com", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2013-06-18", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewscoffeemenu.com", "dr": null, "pages": 13, "posts": 184, "refdoms": null, "reg": "2025-10-26", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7thbrewmenu.com", "dr": null, "pages": 6, "posts": 0, "refdoms": null, "reg": "2026-02-01", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewmenuu.us", "dr": null, "pages": 5, "posts": 181, "refdoms": null, "reg": "2024-10-04", "regApprox": true, "traffic": null}, {"backlinks": null, "domain": "7brewmenucorner.com", "dr": null, "pages": 7, "posts": 0, "refdoms": null, "reg": "2026-03-25", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7thbrewmenus.net", "dr": null, "pages": 24, "posts": 94, "refdoms": null, "reg": "2026-03-01", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewmenu-us.net", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2026-10-13", "regApprox": false, "traffic": null}], "created": "2026-07-29", "createdApprox": false, "domain": "7brewmenuprices.net", "key": "brew", "keyword": "7 brew menu", "lowDR": null, "mozKD": null, "name": "7 Brew Menu", "ownPages": 12, "ownPosts": 0, "url": "https://7brewmenuprices.net/", "volume": null}, {"ahrefsKD": null, "backlinks": [], "compNote": "startmod.dev aik bara platform hai — us ki sitemap mein kul 32,981 URLs hain, is liye pages/posts alag nahi ginay gaye.", "competitors": [{"backlinks": null, "domain": "robots.net", "dr": null, "pages": 17, "posts": 4561, "refdoms": null, "reg": "1997-01-04", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "jennymodsminecraft.net", "dr": null, "pages": 23, "posts": 3, "refdoms": null, "reg": "2026-08-25", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "startmod.dev", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2026-10-23", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "apkpure.net", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2015-08-08", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "jennymodsminecrafts.com", "dr": null, "pages": 8, "posts": 1, "refdoms": null, "reg": "2026-08-10", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "minecraftjenny-mod.com", "dr": null, "pages": 18, "posts": 26, "refdoms": null, "reg": "2025-01-08", "regApprox": false, "traffic": null}], "created": "2026-06-01", "createdApprox": false, "domain": "jenny-mod.net", "key": "jenny", "keyword": "jenny mod", "lowDR": null, "mozKD": null, "name": "Jenny Mod", "ownPages": 9, "ownPosts": 0, "url": "https://jenny-mod.net/", "volume": null}, {"key": "spectrum", "name": "Spectrum Outage", "domain": "spectrumoutages.com", "url": "https://spectrumoutages.com/", "keyword": "spectrum outage", "created": "2026-09-06", "createdApprox": false, "volume": null, "ahrefsKD": null, "mozKD": null, "lowDR": null, "ownPages": 233, "ownPosts": 0, "compNote": "", "backlinks": [], "competitors": [{"domain": "spectrumoutage.info", "reg": "2026-07-27", "regApprox": false, "dr": null, "traffic": null, "pages": 252, "posts": null, "backlinks": null, "refdoms": null}, {"domain": "statusgator.com", "reg": "2015-08-09", "regApprox": false, "dr": null, "traffic": null, "pages": null, "posts": null, "backlinks": null, "refdoms": null}, {"domain": "outage.com", "reg": "1998-05-21", "regApprox": false, "dr": null, "traffic": null, "pages": 770, "posts": null, "backlinks": null, "refdoms": null}, {"domain": "entireweb.com", "reg": "1998-11-22", "regApprox": false, "dr": null, "traffic": null, "pages": 351701, "posts": null, "backlinks": null, "refdoms": null}, {"domain": "istheservicedown.com", "reg": "2016-12-24", "regApprox": false, "dr": null, "traffic": null, "pages": 80, "posts": null, "backlinks": null, "refdoms": null}]}];
 var STATE = {};        // key: siteKey|domain -> {s:'pending'|'live', t:'thread url'}
 
 function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.style.display='block'; setTimeout(function(){t.style.display='none';}, 3200); }
@@ -122,35 +121,35 @@ function panelHTML(site){
   var pct = total ? Math.round(live*100/total) : 0;
   var h='';
   h += '<div class="info">';
-  h += card('🔑 Main Keyword', esc(site.keyword));
-  h += card('🌐 Domain', '<a href="'+esc(site.url)+'" target="_blank" rel="noopener">'+esc(site.domain)+'</a>');
-  h += card('🎂 Domain Creation Date', dateText(site.created), 'Age: '+ageText(site.created, site.createdApprox));
-  h += card('📈 Keyword Volume', site.volume==null?'<span class="pend">— Ahrefs pending</span>':fmtN(site.volume));
-  h += card('🎯 Ahrefs KD', site.ahrefsKD==null?'<span class="pend">— pending</span>':site.ahrefsKD);
-  h += card('🦊 Moz KD', site.mozKD==null?'<span class="pend">— pending</span>':site.mozKD);
-  h += card('🗂️ Apni Site — Sitemap', 'Pages: '+fmtN(site.ownPages)+' &nbsp;|&nbsp; Posts: '+fmtN(site.ownPosts));
-  h += card('🟢 Low DR Sites (Top 10 mein)', site.lowDR==null?'<span class="pend">— Ahrefs pending</span>':site.lowDR);
+  h += card('Main Keyword', esc(site.keyword));
+  h += card('Domain', '<a href="'+esc(site.url)+'" target="_blank" rel="noopener">'+esc(site.domain)+'</a>');
+  h += card('Domain Creation Date', dateText(site.created), 'Age: '+ageText(site.created, site.createdApprox));
+  h += card('Keyword Volume', site.volume==null?'<span class="pend">— Ahrefs pending</span>':fmtN(site.volume));
+  h += card('Ahrefs KD', site.ahrefsKD==null?'<span class="pend">— pending</span>':site.ahrefsKD);
+  h += card('Moz KD', site.mozKD==null?'<span class="pend">— pending</span>':site.mozKD);
+  h += card('Apni Site — Sitemap', 'Pages: '+fmtN(site.ownPages)+' &nbsp;|&nbsp; Posts: '+fmtN(site.ownPosts));
+  h += card('Low DR Sites (Top 10 mein)', site.lowDR==null?'<span class="pend">— Ahrefs pending</span>':site.lowDR);
   h += '</div>';
-  h += '<div class="bar"><button class="refbtn" onclick="requestRefresh(\''+site.key+'\')">🔄 Refresh Data</button>'
-     + '<div class="progress"><div class="pt">🔗 Backlinks progress: '+live+' live / '+total+' total</div><div class="track"><div class="fill" style="width:'+pct+'%"></div></div></div></div>';
-  h += '<h2>🏆 Top Sites — “'+esc(site.keyword)+'” (US SERP)</h2>';
-  h += '<div class="tblwrap"><table><thead><tr><th>#</th><th>Site</th><th>DR</th><th>Traffic (Site Explorer)</th><th>Domain Age</th><th>Sitemap Pages</th><th>Sitemap Posts</th><th>Backlinks</th><th>Referring Domains</th></tr></thead><tbody>';
+  h += '<div class="bar"><button class="refbtn" onclick="requestRefresh(\''+site.key+'\')">↻ &nbsp;Refresh Data</button>'
+     + '<div class="progress"><div class="pt">Backlinks: <b>'+live+' live</b> · '+total+' total</div><div class="track"><div class="fill" style="width:'+pct+'%"></div></div></div></div>';
+  h += '<h2>Top Sites — “'+esc(site.keyword)+'” (US SERP)</h2>';
+  h += '<div class="tblwrap"><table><thead><tr><th>#</th><th>Site</th><th>DR</th><th class="num">Traffic (Site Explorer)</th><th>Domain Age</th><th class="num">Sitemap Pages</th><th class="num">Sitemap Posts</th><th class="num">Backlinks</th><th class="num">Referring Domains</th></tr></thead><tbody>';
   site.competitors.forEach(function(c, idx){
-    h += '<tr><td><span class="rank '+(idx<3?'r'+(idx+1):'')+'">'+(idx+1)+'</span></td><td class="dom">'+fav(c.domain)+'<a href="https://'+esc(c.domain)+'" target="_blank" rel="noopener">'+esc(c.domain)+'</a></td>'
+    h += '<tr><td><span class="rank">'+(idx+1)+'</span></td><td class="dom">'+fav(c.domain)+'<a href="https://'+esc(c.domain)+'" target="_blank" rel="noopener">'+esc(c.domain)+'</a></td>'
        + '<td>'+(c.dr==null?'<span class="pend">—</span>':'<span class="dchip">'+c.dr+'</span>')+'</td>'
-       + '<td>'+fmtN(c.traffic)+'</td>'
+       + '<td class="num">'+fmtN(c.traffic)+'</td>'
        + '<td>'+ageText(c.reg, c.regApprox)+'<br><span class="pend" style="font-size:11px">'+dateText(c.reg)+'</span></td>'
-       + '<td>'+fmtN(c.pages)+'</td><td>'+fmtN(c.posts)+'</td>'
-       + '<td>'+fmtN(c.backlinks)+'</td><td>'+fmtN(c.refdoms)+'</td></tr>';
+       + '<td class="num">'+fmtN(c.pages)+'</td><td class="num">'+fmtN(c.posts)+'</td>'
+       + '<td class="num">'+fmtN(c.backlinks)+'</td><td class="num">'+fmtN(c.refdoms)+'</td></tr>';
   });
   h += '</tbody></table></div>';
-  if(site.compNote) h += '<div class="note">'+esc(site.compNote)+'</div>';
-  h += '<h2>🔗 Backlinks Table</h2>';
-  h += '<div class="filters"><input type="text" placeholder="🔍 Domain ya competitor search karein…" oninput="filterRows(\''+site.key+'\', this.value, document.getElementById(\'fstatus-'+site.key+'\').value)">'
-     + '<select id="fstatus-'+site.key+'" onchange="filterRows(\''+site.key+'\', document.querySelector(\'#panel-'+site.key+' .filters input\').value, this.value)"><option value="all">Sab status</option><option value="live">✅ Live sirf</option><option value="pending">⏳ Pending sirf</option></select></div>';
-  h += '<div class="tblwrap"><table id="bl-'+site.key+'"><thead><tr><th>Domain</th><th>DR</th><th>Domain Traffic</th><th>Competitor Domain</th><th>Reference URL</th><th>Dofollow / Nofollow</th><th>Link Live / Pending</th><th>Chosen Thread</th></tr></thead><tbody>';
+  if(site.compNote) h += '<div style="font-size:12.5px;color:var(--mut);margin-top:8px">'+esc(site.compNote)+'</div>';
+  h += '<h2>Backlinks</h2>';
+  h += '<div class="filters"><input type="text" placeholder="Domain ya competitor search karein…" oninput="filterRows(\''+site.key+'\', this.value, document.getElementById(\'fstatus-'+site.key+'\').value)">'
+     + '<select id="fstatus-'+site.key+'" onchange="filterRows(\''+site.key+'\', document.querySelector(\'#panel-'+site.key+' .filters input\').value, this.value)"><option value="all">Sab status</option><option value="live">Live sirf</option><option value="pending">Pending sirf</option></select></div>';
+  h += '<div class="tblwrap"><table id="bl-'+site.key+'"><thead><tr><th>Domain</th><th>DR</th><th class="num">Domain Traffic</th><th>Competitor Domain</th><th>Reference URL</th><th>Dofollow / Nofollow</th><th>Link Live / Pending</th><th>Chosen Thread</th></tr></thead><tbody>';
   if(!site.backlinks.length){
-    h += '<tr><td colspan="8"><div class="empty"><span class="big">🕸️</span>Abhi is tab mein koi backlink row nahi.</div></td></tr>';
+    h += '<tr><td colspan="8"><div class="empty">Abhi is tab mein koi backlink row nahi.</div></td></tr>';
   }
   site.backlinks.forEach(function(r){
     var key = site.key+'|'+r.domain;
@@ -158,11 +157,11 @@ function panelHTML(site){
     h += '<tr data-domain="'+esc(r.domain.toLowerCase())+'" data-comp="'+esc((r.competitors||[]).join(' ').toLowerCase())+'" data-key="'+esc(key)+'">'
       + '<td class="dom">'+fav(r.domain)+'<a href="https://'+esc(r.domain)+'" target="_blank" rel="noopener">'+esc(r.domain)+'</a></td>'
       + '<td>'+(r.dr==null?'<span class="pend">—</span>':'<span class="dchip">'+r.dr+'</span>')+'</td>'
-      + '<td>'+fmtN(r.traffic)+'</td>'
+      + '<td class="num">'+fmtN(r.traffic)+'</td>'
       + '<td class="multi">'+esc((r.competitors||[]).join('\n'))+'</td>'
       + '<td class="multi">'+(r.refs||[]).map(function(u){return '<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(u)+'</a>';}).join('<br>')+'</td>'
-      + '<td>'+(r.follow? (r.follow.toLowerCase().indexOf('do')===0 && r.follow.toLowerCase().indexOf('nofollow')!==0 ? '✅ ':'🚫 ') + esc(r.follow) : '—')+'</td>'
-      + '<td><select class="status '+st.s+'" data-key="'+esc(key)+'" onchange="setStatus(this)"><option value="pending"'+(st.s==='pending'?' selected':'')+'>⏳ Pending</option><option value="live"'+(st.s==='live'?' selected':'')+'>✅ Live</option></select></td>'
+      + '<td>'+esc(r.follow||'—')+'</td>'
+      + '<td><select class="status '+st.s+'" data-key="'+esc(key)+'" onchange="setStatus(this)"><option value="pending"'+(st.s==='pending'?' selected':'')+'>Pending</option><option value="live"'+(st.s==='live'?' selected':'')+'>Live</option></select></td>'
       + '<td><input class="thread" data-key="'+esc(key)+'" placeholder="Thread URL paste karein…" value="'+esc(st.t||'')+'" oninput="setThread(this)"></td>'
       + '</tr>';
   });
@@ -185,8 +184,8 @@ var saveTimer=null;
 function queueSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveState, 700); }
 function saveState(){
   fetch('https://getpantry.cloud/apiv1/pantry/'+PANTRY+'/basket/bl-status', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(STATE)})
-    .then(function(r){ if(r.ok) toast('✔ Save ho gaya (cloud)'); })
-    .catch(function(){ try{ localStorage.setItem('bl_status_backup', JSON.stringify(STATE)); }catch(e){} toast('⚠ Cloud save fail — backup is browser mein save hai'); });
+    .then(function(r){ if(r.ok) toast('Save ho gaya (cloud)'); })
+    .catch(function(){ try{ localStorage.setItem('bl_status_backup', JSON.stringify(STATE)); }catch(e){} toast('Cloud save fail — backup is browser mein save hai'); });
 }
 function setStatus(sel){
   var key=sel.getAttribute('data-key');
@@ -210,8 +209,8 @@ function requestRefresh(siteKey){
       q.requests.push({site: siteKey, at: new Date().toISOString()});
       return fetch('https://getpantry.cloud/apiv1/pantry/'+PANTRY+'/basket/'+basket, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(q)});
     })
-    .then(function(r){ toast(r.ok ? '🔄 Refresh request lag gayi — browser free hotay hi data update ho jayega' : '⚠ Request fail, dobara try karein'); })
-    .catch(function(){ toast('⚠ Request fail, dobara try karein'); });
+    .then(function(r){ toast(r.ok ? 'Refresh request lag gayi — browser free hotay hi data update ho jayega' : 'Request fail, dobara try karein'); })
+    .catch(function(){ toast('Request fail, dobara try karein'); });
 }
 
 function loadState(){
