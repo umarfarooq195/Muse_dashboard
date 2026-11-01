@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sites &amp; Backlinks Dashboard</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; background: #f6f7f9; color: #1c2330; }
+  header { background: #17324f; color: #fff; padding: 14px 18px; }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: 4px 0 0; font-size: 13px; opacity: .85; }
+  .tabs { display: flex; gap: 6px; padding: 10px 14px 0; flex-wrap: wrap; }
+  .tab { border: 1px solid #c3ccd6; border-bottom: none; background: #e8edf3; padding: 9px 18px; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: 600; font-size: 14px; }
+  .tab.active { background: #fff; color: #17324f; box-shadow: 0 -2px 6px rgba(0,0,0,.06); }
+  .panel { background: #fff; margin: 0 14px 22px; border: 1px solid #c3ccd6; border-radius: 0 8px 8px 8px; padding: 16px; display: none; }
+  .panel.active { display: block; }
+  .info { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .card { border: 1px solid #dde3ea; border-radius: 8px; padding: 10px 12px; background: #fbfcfe; }
+  .card .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #5b6b7f; }
+  .card .val { font-size: 16px; font-weight: 700; margin-top: 3px; word-break: break-word; }
+  .card .sub { font-size: 12px; color: #2e7d4f; margin-top: 2px; font-weight: 600; }
+  h2 { font-size: 16px; margin: 18px 0 8px; color: #17324f; }
+  .tblwrap { overflow-x: auto; border: 1px solid #dde3ea; border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; min-width: 760px; }
+  th { background: #eef2f7; text-align: left; padding: 8px 9px; border-bottom: 1px solid #d4dce5; white-space: nowrap; }
+  td { padding: 7px 9px; border-bottom: 1px solid #edf0f4; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.dom, td a { font-weight: 600; color: #14508c; text-decoration: none; }
+  .pend { color: #9aa7b5; }
+  .yng { background: #e6f6ec; border-radius: 4px; padding: 1px 5px; font-weight: 600; }
+  .refbtn { background: #17324f; color: #fff; border: none; padding: 9px 16px; border-radius: 7px; font-size: 14px; cursor: pointer; font-weight: 600; }
+  .refbtn:active { transform: scale(.98); }
+  .note { font-size: 12px; color: #5b6b7f; margin-top: 8px; }
+  select.status { padding: 5px 7px; border-radius: 6px; border: 1px solid #c3ccd6; font-weight: 600; }
+  select.status.live { background: #e6f6ec; border-color: #2e7d4f; color: #1d5c38; }
+  select.status.pending { background: #fdf3e0; border-color: #d9a441; color: #7a5510; }
+  input.thread { width: 100%; min-width: 190px; padding: 6px 8px; border: 1px solid #c3ccd6; border-radius: 6px; font-size: 12.5px; }
+  .empty { padding: 16px; text-align: center; color: #5b6b7f; font-size: 13.5px; }
+  #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: #17324f; color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 14px; display: none; z-index: 50; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+  .multi { white-space: pre-line; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🔗 Sites &amp; Backlinks Dashboard</h1>
+  <p>Har site ka apna tab — upar keyword/competition data, neechay backlink table. Status aur Chosen Thread cloud mein auto-save hote hain.</p>
+</header>
+<div class="tabs" id="tabs"></div>
+<div id="panels"></div>
+<div id="toast"></div>
+<script>
+var PANTRY = "23ed3362-78ad-43ff-997f-5fe42ef13da1";
+var SITES = [{"ahrefsKD": null, "backlinks": [], "compNote": "", "competitors": [{"backlinks": null, "domain": "doordash.com", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2013-06-18", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewscoffeemenu.com", "dr": null, "pages": 13, "posts": 184, "refdoms": null, "reg": "2025-10-26", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7thbrewmenu.com", "dr": null, "pages": 6, "posts": 0, "refdoms": null, "reg": "2026-02-01", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewmenuu.us", "dr": null, "pages": 5, "posts": 181, "refdoms": null, "reg": "2024-10-04", "regApprox": true, "traffic": null}, {"backlinks": null, "domain": "7brewmenucorner.com", "dr": null, "pages": 7, "posts": 0, "refdoms": null, "reg": "2026-03-25", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7thbrewmenus.net", "dr": null, "pages": 24, "posts": 94, "refdoms": null, "reg": "2026-03-01", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "7brewmenu-us.net", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2026-10-13", "regApprox": false, "traffic": null}], "created": "2026-07-29", "createdApprox": false, "domain": "7brewmenuprices.net", "key": "brew", "keyword": "7 brew menu", "lowDR": null, "mozKD": null, "name": "7 Brew Menu", "ownPages": 12, "ownPosts": 0, "url": "https://7brewmenuprices.net/", "volume": null}, {"ahrefsKD": null, "backlinks": [], "compNote": "startmod.dev aik bara platform hai — us ki sitemap mein kul 32,981 URLs hain, is liye pages/posts alag nahi ginay gaye.", "competitors": [{"backlinks": null, "domain": "robots.net", "dr": null, "pages": 17, "posts": 4561, "refdoms": null, "reg": "1997-01-04", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "jennymodsminecraft.net", "dr": null, "pages": 23, "posts": 3, "refdoms": null, "reg": "2026-08-25", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "startmod.dev", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2026-10-23", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "apkpure.net", "dr": null, "pages": null, "posts": null, "refdoms": null, "reg": "2015-08-08", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "jennymodsminecrafts.com", "dr": null, "pages": 8, "posts": 1, "refdoms": null, "reg": "2026-08-10", "regApprox": false, "traffic": null}, {"backlinks": null, "domain": "minecraftjenny-mod.com", "dr": null, "pages": 18, "posts": 26, "refdoms": null, "reg": "2025-01-08", "regApprox": false, "traffic": null}], "created": "2026-06-01", "createdApprox": false, "domain": "jenny-mod.net", "key": "jenny", "keyword": "jenny mod", "lowDR": null, "mozKD": null, "name": "Jenny Mod", "ownPages": 9, "ownPosts": 0, "url": "https://jenny-mod.net/", "volume": null}];
+var STATE = {};        // key: siteKey|domain -> {s:'pending'|'live', t:'thread url'}
+var stateLoaded = false;
+
+function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.style.display='block'; setTimeout(function(){t.style.display='none';}, 3200); }
+function fmtN(n){ if(n===null||n===undefined) return '<span class="pend">—</span>'; return Number(n).toLocaleString('en-US'); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+function ageParts(iso){
+  if(!iso) return null;
+  var d = new Date(iso+'T00:00:00Z'), now = new Date();
+  var y = now.getUTCFullYear()-d.getUTCFullYear(), mo = now.getUTCMonth()-d.getUTCMonth(), da = now.getUTCDate()-d.getUTCDate();
+  if(da<0){ mo--; var prev=new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 0)); da += prev.getUTCDate(); }
+  if(mo<0){ y--; mo+=12; }
+  return {y:y, m:mo, d:da};
+}
+function ageText(iso, approx){
+  var p = ageParts(iso); if(!p) return '<span class="pend">—</span>';
+  var s = '';
+  if(p.y>0) s = p.y + ' saal ' + p.m + ' maah';
+  else if(p.m>0) s = p.m + ' maah ' + p.d + ' din';
+  else s = p.d + ' din';
+  var young = (p.y===0) || (p.y===1 && p.m<6);
+  return (approx?'~':'') + '<span class="'+(young?'yng':'')+'">' + s + '</span>';
+}
+function dateText(iso){ if(!iso) return '<span class="pend">—</span>'; var d=new Date(iso+'T00:00:00Z'); return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}); }
+
+function render(){
+  var tabs=document.getElementById('tabs'), panels=document.getElementById('panels');
+  tabs.innerHTML=''; panels.innerHTML='';
+  SITES.forEach(function(site, i){
+    var b=document.createElement('button'); b.className='tab'+(i===0?' active':''); b.textContent=site.name;
+    b.onclick=function(){ document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')}); document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active')}); b.classList.add('active'); document.getElementById('panel-'+site.key).classList.add('active'); };
+    tabs.appendChild(b);
+    var p=document.createElement('div'); p.className='panel'+(i===0?' active':''); p.id='panel-'+site.key;
+    p.innerHTML = panelHTML(site);
+    panels.appendChild(p);
+  });
+  wirePanel();
+}
+
+function panelHTML(site){
+  var h='';
+  h += '<div class="info">';
+  h += card('Main Keyword', esc(site.keyword));
+  h += card('Domain', '<a href="'+esc(site.url)+'" target="_blank" rel="noopener">'+esc(site.domain)+'</a>');
+  h += card('Domain Creation Date', dateText(site.created), 'Age: '+ageText(site.created, site.createdApprox)+' (har roz auto-update)');
+  h += card('Keyword Volume', site.volume==null?'<span class="pend">— Ahrefs pending</span>':fmtN(site.volume));
+  h += card('Ahrefs KD', site.ahrefsKD==null?'<span class="pend">— pending</span>':site.ahrefsKD);
+  h += card('Moz KD', site.mozKD==null?'<span class="pend">— pending</span>':site.mozKD);
+  h += card('Apni Site — Sitemap', 'Pages: '+fmtN(site.ownPages)+' &nbsp;|&nbsp; Posts: '+fmtN(site.ownPosts));
+  h += card('Low DR Sites (Top 10 mein)', site.lowDR==null?'<span class="pend">— Ahrefs pending</span>':site.lowDR);
+  h += '</div>';
+  h += '<button class="refbtn" onclick="requestRefresh(\''+site.key+'\')">🔄 Refresh Data</button>';
+  h += '<div class="note">Refresh: nayi SERP sites add hongi, purani sites kay stats update honge, un kay naye backlinks bhi add ho jayenge. Aap ka status/thread wala data kabhi delete ya change nahi hoga.</div>';
+  h += '<h2>🏆 Top Sites — “'+esc(site.keyword)+'” (US SERP)</h2>';
+  h += '<div class="tblwrap"><table><tr><th>#</th><th>Site</th><th>DR</th><th>Traffic (Site Explorer)</th><th>Domain Age</th><th>Sitemap Pages</th><th>Sitemap Posts</th><th>Backlinks</th><th>Referring Domains</th></tr>';
+  site.competitors.forEach(function(c, idx){
+    h += '<tr><td>'+(idx+1)+'</td><td class="dom"><a href="https://'+esc(c.domain)+'" target="_blank" rel="noopener">'+esc(c.domain)+'</a></td>'
+       + '<td>'+(c.dr==null?'<span class="pend">—</span>':c.dr)+'</td>'
+       + '<td>'+fmtN(c.traffic)+'</td>'
+       + '<td>'+ageText(c.reg, c.regApprox)+'<br><span class="pend" style="font-size:11px">'+dateText(c.reg)+'</span></td>'
+       + '<td>'+fmtN(c.pages)+'</td><td>'+fmtN(c.posts)+'</td>'
+       + '<td>'+fmtN(c.backlinks)+'</td><td>'+fmtN(c.refdoms)+'</td></tr>';
+  });
+  h += '</table></div>';
+  if(site.compNote) h += '<div class="note">'+esc(site.compNote)+'</div>';
+  h += '<div class="note">DR / Traffic / Backlinks / Referring Domains — ye Ahrefs Site Explorer se bharay jayenge (credits reset kay baad). Age aur sitemap counts public data se verified hain.</div>';
+  h += '<h2>🔗 Backlinks Table</h2>';
+  h += '<div class="tblwrap"><table><tr><th>Domain</th><th>DR</th><th>Domain Traffic</th><th>Competitor Domain</th><th>Reference URL</th><th>Dofollow / Nofollow</th><th>Link Live / Pending</th><th>Chosen Thread</th></tr>';
+  if(!site.backlinks.length){
+    h += '<tr><td colspan="8"><div class="empty">Abhi is tab mein koi backlink row nahi. Pehla data competitors kay Site Explorer backlinks se bharay ga — har competitor kay backlinks domain traffic se sort karke, traffic-0 walay domains chhor kar.</div></td></tr>';
+  }
+  site.backlinks.forEach(function(r){
+    var key = site.key+'|'+r.domain;
+    var st = STATE[key] || {s:'pending', t:''};
+    h += '<tr>'
+      + '<td class="dom"><a href="https://'+esc(r.domain)+'" target="_blank" rel="noopener">'+esc(r.domain)+'</a></td>'
+      + '<td>'+(r.dr==null?'<span class="pend">—</span>':r.dr)+'</td>'
+      + '<td>'+fmtN(r.traffic)+'</td>'
+      + '<td class="multi">'+esc((r.competitors||[]).join('\n'))+'</td>'
+      + '<td class="multi">'+(r.refs||[]).map(function(u){return '<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(u)+'</a>';}).join('<br>')+'</td>'
+      + '<td>'+esc(r.follow||'—')+'</td>'
+      + '<td><select class="status '+st.s+'" data-key="'+esc(key)+'" onchange="setStatus(this)"><option value="pending"'+(st.s==='pending'?' selected':'')+'>⏳ Pending</option><option value="live"'+(st.s==='live'?' selected':'')+'>✅ Live</option></select></td>'
+      + '<td><input class="thread" data-key="'+esc(key)+'" placeholder="Thread URL paste karein…" value="'+esc(st.t||'')+'" oninput="setThread(this)"></td>'
+      + '</tr>';
+  });
+  h += '</table></div>';
+  h += '<div class="note">Aik domain = aik hi row. Agar aik domain ko kai competitors ne link kiya hai, to saaray competitors aur un ki reference URLs isi aik row mein nazar aayenge.</div>';
+  return h;
+}
+function card(lbl, val, sub){ return '<div class="card"><div class="lbl">'+lbl+'</div><div class="val">'+val+'</div>'+(sub?'<div class="sub">'+sub+'</div>':'')+'</div>'; }
+
+var saveTimer=null;
+function queueSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveState, 700); }
+function saveState(){
+  fetch('https://getpantry.cloud/apiv1/pantry/'+PANTRY+'/basket/bl-status', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(STATE)})
+    .then(function(r){ if(r.ok) toast('✔ Save ho gaya (cloud)'); })
+    .catch(function(){ try{ localStorage.setItem('bl_status_backup', JSON.stringify(STATE)); }catch(e){} toast('⚠ Cloud save fail — backup is browser mein save hai'); });
+}
+function setStatus(sel){
+  var key=sel.getAttribute('data-key');
+  STATE[key]=STATE[key]||{s:'pending',t:''}; STATE[key].s=sel.value;
+  sel.className='status '+sel.value; queueSave();
+}
+function setThread(inp){
+  var key=inp.getAttribute('data-key');
+  STATE[key]=STATE[key]||{s:'pending',t:''}; STATE[key].t=inp.value.trim(); queueSave();
+}
+function wirePanel(){ /* selects/inputs carry inline handlers; nothing extra needed */ }
+
+function requestRefresh(siteKey){
+  var basket='bl-refresh-queue';
+  fetch('https://getpantry.cloud/apiv1/pantry/'+PANTRY+'/basket/'+basket)
+    .then(function(r){ return r.ok ? r.json() : {requests:[]}; })
+    .catch(function(){ return {requests:[]}; })
+    .then(function(q){
+      q.requests = q.requests || [];
+      q.requests.push({site: siteKey, at: new Date().toISOString()});
+      return fetch('https://getpantry.cloud/apiv1/pantry/'+PANTRY+'/basket/'+basket, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(q)});
+    })
+    .then(function(r){ toast(r.ok ? '🔄 Refresh request lag gayi — browser free hotay hi data update ho jayega' : '⚠ Request fail, dobara try karein'); })
+    .catch(function(){ toast('⚠ Request fail, dobara try karein'); });
+}
+
+function loadState(){
+  fetch('https://getpantry.cloud/apiv1/pantry/'+PANTRY+'/basket/bl-status')
+    .then(function(r){ return r.ok ? r.json() : {}; })
+    .catch(function(){ try{ return JSON.parse(localStorage.getItem('bl_status_backup')||'{}'); }catch(e){ return {}; } })
+    .then(function(s){ STATE = s || {}; stateLoaded = true; render(); });
+}
+render();
+loadState();
+</script>
+</body>
+</html>
